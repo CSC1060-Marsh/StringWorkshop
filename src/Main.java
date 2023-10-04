@@ -13,7 +13,7 @@ public class Main {
             //This defines their input as the starting string.
             String startingString = sc.nextLine();
             //This starts the repeat, executing the following when the repeat is true.
-            while (repeat == true) {
+            while (repeat) {
                 //This prints out the menu for the user to choose from.
             System.out.println("Pick an action to execute:\n" +
                     "1. Add content\n" +
@@ -29,8 +29,8 @@ public class Main {
             sc.nextLine();
             //This executes the following if their choice is 1.
             if (choice == 1) {
-                //This executes the method "optionOne" if the above is true.
-                optionOne(startingString, sc);
+                //This executes the method "optionOne" and redefines the starting string if the above is true.
+                startingString = optionOne(startingString, sc);
                 //This executes the following if their choice is 2.
             } else if (choice == 2) {
                 //This executes the method "optionTwo" if the above is true.
@@ -61,7 +61,7 @@ public class Main {
         }
     }
     //This creates the method optionOne to be used if their choice was 1.
-    public static void optionOne(String startingString, Scanner sc) {
+    public static String optionOne(String startingString, Scanner sc) {
         //This asks the user to input their addition.
         System.out.println("What would you like to add?");
         //This defines the variable "addition" as their addition.
@@ -70,6 +70,8 @@ public class Main {
         startingString = startingString + addition;
         //This outputs the new string to the user.
         System.out.println("Your current string is '" + startingString + "'.");
+        //This returns the new starting string as the original starting string with the addition.
+        return startingString;
     }
     //This creates the method optionTwo to be used if their choice was 2.
     public static void optionTwo(String startingString, Scanner sc) {
@@ -106,12 +108,10 @@ public class Main {
         int stringLength = startingString.length();
         //This takes the length of their prefix input.
         int lengthOfPrefixInput = prefixInput.length();
-        //This defines the character "prefix" as the character in the last position of their input.
-        char prefix = prefixInput.charAt(lengthOfPrefixInput - 1);
-        //This takes the index of "prefix" in relation to the starting string, finding where it is.
-        int indexOfPrefix = startingString.indexOf(prefix);
+        //This takes the index of the prefix in relation to the starting string, finding where it is.
+        int indexOfPrefix = startingString.indexOf(prefixInput);
         //This defines the string "value" as the substring from the character after the end of the prefix to the end of the string.
-        String value = startingString.substring(indexOfPrefix + 1, stringLength);
+        String value = startingString.substring(indexOfPrefix + lengthOfPrefixInput, stringLength);
         //This prints out the substring.
         System.out.println("The substring is " + value);
     }
@@ -142,12 +142,10 @@ public class Main {
         int indexOfSuffix = startingString.indexOf(suffixInput);
         //This takes the length of their prefix input.
         int lengthOfPrefixInput = prefixInput.length();
-        //This defines the character "prefix" as the last character in their prefix input.
-        char prefix = prefixInput.charAt(lengthOfPrefixInput - 1);
-        //This takes the index of the prefix character in relation to the starting string, finding where it is.
-        int indexOfPrefix = startingString.indexOf(prefix);
+        //This takes the index of the prefix string in relation to the starting string, finding where it is.
+        int indexOfPrefix = startingString.indexOf(prefixInput);
         //This defines the string "value" as the substring from the character after the prefix up to the first character in the suffix.
-        String value = startingString.substring(indexOfPrefix + 1, indexOfSuffix);
+        String value = startingString.substring(indexOfPrefix + lengthOfPrefixInput, indexOfSuffix);
         //This prints out the substring.
         System.out.println("The substring is " + value);
     }
